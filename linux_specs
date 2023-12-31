@@ -1,0 +1,25 @@
+#!/bin/bash
+#shraddha shinde
+# get the reequired remote machine specs 
+get_cpu_mem_disk_specs() {
+    echo "Retrieving system specifications for `hostname`"
+    echo "**********************************"
+    echo "CPU Information:"
+    #top | head -5 
+    lscpu | grep 'CPU(s)'
+    echo "**********************************"
+    echo "Memory Information:"
+    free -h
+    echo "**********************************"
+    echo "Disk Information:"
+    df -h
+}
+
+
+if [[ "$(uname)" == "Linux" ]]; then
+
+#add the remote machine details for which specs are required
+ssh ubuntu@54.91.30.220 "$(typeset -f); get_cpu_mem_disk_specs"
+else
+    echo "Not a  Valid OS, Please retry ."
+fi
