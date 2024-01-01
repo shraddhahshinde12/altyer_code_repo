@@ -1,5 +1,14 @@
 #!/bin/bash
 #shraddha shinde
+
+
+# Check if hostname argument is provided
+if [ -z "$1" ]; then
+    echo "Please provide a username:hostname."
+    echo "Usage: $0 username:hostname "
+    exit 1
+fi
+
 # get the reequired remote machine specs 
 get_cpu_mem_disk_specs() {
     echo "Retrieving system specifications for `hostname`"
@@ -19,7 +28,7 @@ get_cpu_mem_disk_specs() {
 if [[ "$(uname)" == "Linux" ]]; then
 
 #add the remote machine details for which specs are required
-ssh ubuntu@54.91.30.220 "$(typeset -f); get_cpu_mem_disk_specs"
+ssh $1 "$(typeset -f); get_cpu_mem_disk_specs"
 else
-    echo "Not a  Valid OS, Please retry ."
+    echo "Unsupported OS."
 fi
